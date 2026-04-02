@@ -1,5 +1,7 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 
+console.log("TOKEN CHECK:", process.env.TOKEN); // 👈 DEBUG
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -33,5 +35,10 @@ client.on('messageCreate', async (message) => {
     await pollMessage.react('2️⃣');
   }
 });
+
+if (!process.env.TOKEN) {
+  console.error("❌ KEIN TOKEN GESETZT!");
+  process.exit(1);
+}
 
 client.login(process.env.TOKEN);
